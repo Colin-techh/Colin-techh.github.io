@@ -11,6 +11,7 @@ node_modules
 src
 dist-ssr
 *.local
+DONOTSHARE.txt
 
 # Editor directories and files
 .vscode/*
