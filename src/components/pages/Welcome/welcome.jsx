@@ -38,7 +38,7 @@ function Welcome() {
     };
     return(
       <div className="welcome">
-        <h1>Passage identification quiz for Gov1074</h1>
+        <h1>Passage identification quiz for Gov1074: <br></br>12/09: Updated for final exam!</h1>
         <h2>Made by Colin Williams, '29</h2>
         <Link to="/Quiz"><Start /></Link>
         
