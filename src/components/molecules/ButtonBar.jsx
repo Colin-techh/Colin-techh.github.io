@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import Dropdown from "../atoms/Dropdown";
 import './ButtonBar.css';
 import Next from "../atoms/Next";
-function ButtonBar({onGuess, onChange, list, nextPassage}) {
+import GetSource from "../atoms/GetSource";
+function ButtonBar({onGuess, onChange, list, nextPassage, source}) {
     
     return(
         <div className="button-bar">
@@ -12,6 +13,7 @@ function ButtonBar({onGuess, onChange, list, nextPassage}) {
             <Link to="/"><Back /></Link>
             <Dropdown onChange={onChange} list={list}/>
             <Next nextPassage={nextPassage}></Next>
+            <GetSource source={source}></GetSource>
         </div>
     )
 }

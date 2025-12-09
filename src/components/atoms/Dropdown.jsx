@@ -4,12 +4,15 @@ function Dropdown({onChange, list}) {
     const [authors, setAuthors] = useState(list);
 
     useEffect(() => {
-        setAuthors(list);
+        if(list) {
+            setAuthors([...new Set(list.map(name => name.slice(0, -6)))]);
+        }
     }, [list]);
 
     if(!authors) {
         return;
     }
+    
     return(
         <div className="dropdown-wrapper">
             <select id="nice-dropdown" className="nice-dropdown" onChange={e => onChange(e.target.value)}>

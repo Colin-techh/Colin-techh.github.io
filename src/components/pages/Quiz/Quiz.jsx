@@ -22,11 +22,22 @@ async function loadFileNames(signal) {
             });
     
 }
+async function getSource(signal) {
+    return fetch(`https://raw.githubusercontent.com/cwilliams2-cmd/Gov1074Quiz/refs/heads/main/passageTitles.json`, { signal })
+            .then(res => res.json())
+            .catch(err => {
+                if(err.name == "AbortError") {
+                    return;
+                }
+                alert("Failed to load passage source");
+            });
+}
 function Quiz() {
     
     const [author, setAuthor] = useState("");
     const [guess, setGuess] = useState("");
     const [list, setList] = useState("");
+    const [source, setSource] = useState("");
     useEffect(() => {
         const controller = new AbortController();
         const signal = controller.signal;
@@ -38,18 +49,23 @@ function Quiz() {
             return loadPassageUrl(response);
         })
         .then(res => {
-            setAuthor(res);  
+            setAuthor(res);
+            return getSource(signal);
+        })
+        .then(res => {
+            setSource(res);
         })
         .catch(err => {console.log(err);});
         return () => controller.abort();
     }, []);
     
     const clicksSubmit = () => {
-        if(author == guess) {
-            alert("Correct! Answer was " + author);
+        if(author.slice(0, -6) == guess) {
+            alert("Correct! Answer was " + author.slice(0, -6));
         } else {
-            alert("Incorrect, answer was " + author);
+            alert("Incorrect, answer was " + author.slice(0, -6));
         }
+        console.log(source)
     }
 
     const nextPassage = () => {
@@ -57,12 +73,14 @@ function Quiz() {
             setAuthor(res);
         });
     }
-
+    const alertSource = () => {
+        alert(source[author]);
+    }
     return(
         <div>
             <Head></Head>
             <Passage passageAuthor={author}/>
-            <ButtonBar onGuess={clicksSubmit} onChange={setGuess} list = {list} nextPassage={nextPassage}/>
+            <ButtonBar onGuess={clicksSubmit} onChange={setGuess} list = {list} nextPassage={nextPassage} source = {alertSource}/>
 
         </div>
     )
