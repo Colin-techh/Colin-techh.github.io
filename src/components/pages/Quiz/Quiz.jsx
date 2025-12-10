@@ -65,7 +65,6 @@ function Quiz() {
         } else {
             alert("Incorrect, answer was " + author.slice(0, -6));
         }
-        console.log(source)
     }
 
     const nextPassage = () => {
